@@ -1,0 +1,19 @@
+This is an x86-64 bomb for self-study students. 
+
+Note: only record bomb 6 design because it is the harderst one
+
+Machine/Tools Info:
+1. Ubuntu 20.04
+2. Kernel: 5.15.0-46-generic
+3. ISA: x86_64
+4. gdb: 9.2
+5. readelf: 2.34(section file is from command: readelf -S ./bomb)
+
+Bomb 6 Design:
+1. input should be 6 integers and should be < 7 -> [1, 6] is the most suitable input
+2. input integers cannot be same -> [1, 2, 3, ..., 6] is the most suitable input
+3. input integers will be replaced with (7 - x) where x in [1, 2, 3, ..., 6]. E.g., 1 2 3 4 5 6 => 6 5 4 3 2 1
+4. x has a key value k, where x in [1, 2, 3, ..., 6] and k in [332, 168, 924, 691, 477, 443]
+5. input integers order matters such that: key(x[i]) >= key(x[i + 1]) for x in [1, 2 ,3, ..., 6] after design 3 occured
+
+So the only input integers order is: 4 3 2 1 6 5 since we will get 3 4 5 6 1 2 after design 3 occured and fulfil design 5
