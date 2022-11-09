@@ -1,0 +1,135 @@
+#####################################################################
+# CS:APP Malloc Lab
+# Handout files for students
+#
+# Copyright (c) 2002, R. Bryant and D. O'Hallaron, All rights reserved.
+# May not be used, modified, or copied without permission.
+#
+######################################################################
+
+***********
+Main Files:
+***********
+
+mm.{c,h}	
+	Your solution malloc package. mm.c is the file that you
+	will be handing in, and is the only file you should modify.
+
+mdriver.c	
+	The malloc driver that tests your mm.c file
+
+short{1,2}-bal.rep
+	Two tiny tracefiles to help you get started. 
+
+Makefile	
+	Builds the driver
+
+**********************************
+Other support files for the driver
+**********************************
+
+config.h	Configures the malloc lab driver
+fsecs.{c,h}	Wrapper function for the different timer packages
+clock.{c,h}	Routines for accessing the Pentium and Alpha cycle counters
+fcyc.{c,h}	Timer functions based on cycle counters
+ftimer.{c,h}	Timer functions based on interval timers and gettimeofday()
+memlib.{c,h}	Models the heap and sbrk function
+
+*******************************
+Building and running the driver
+*******************************
+To build the driver, type "make" to the shell.
+
+To run the driver on a tiny test trace:
+
+	unix> mdriver -V -f short1-bal.rep
+
+The -V option prints out helpful tracing and summary information.
+
+To get a list of the driver flags:
+
+	unix> mdriver -h
+
+**********************************
+Performance of find_fit algorithms
+**********************************
+1. first fit
+Results for mm malloc:
+trace  valid  util     ops      secs  Kops
+ 0       yes   99%    5694  0.009882   576
+ 1       yes   99%    5848  0.008887   658
+ 2       yes   99%    6648  0.015429   431
+ 3       yes  100%    5380  0.011462   469
+ 4       yes   66%   14400  0.000167 86176
+ 5       yes   92%    4800  0.010573   454
+ 6       yes   92%    4800  0.009950   482
+ 7       yes   55%   12000  0.211063    57
+ 8       yes   51%   24000  0.393757    61
+ 9       yes   27%   14401  0.090502   159
+10       yes   34%   14401  0.003129  4603
+Total          74%  112372  0.764801   147
+
+Perf index = 44 (util) + 10 (thru) = 54/100
+correct:11
+perfidx:54
+
+2. next fit(Winner)
+Results for mm malloc:
+trace  valid  util     ops      secs  Kops
+ 0       yes   91%    5694  0.002226  2558
+ 1       yes   91%    5848  0.001718  3403
+ 2       yes   95%    6648  0.005573  1193
+ 3       yes   97%    5380  0.005341  1007
+ 4       yes   66%   14400  0.000197 73096
+ 5       yes   90%    4800  0.005632   852
+ 6       yes   88%    4800  0.005615   855
+ 7       yes   55%   12000  0.022136   542
+ 8       yes   51%   24000  0.011520  2083
+ 9       yes   27%   14401  0.089331   161
+10       yes   45%   14401  0.002341  6153
+Total          72%  112372  0.151630   741
+
+Perf index = 43 (util) + 40 (thru) = 83/100
+correct:11
+perfidx:83
+
+3. best fit
+Results for mm malloc:
+trace  valid  util     ops      secs  Kops
+ 0       yes   99%    5694  0.071162    80
+ 1       yes   99%    5848  0.085454    68
+ 2       yes   99%    6648  0.133053    50
+ 3       yes   99%    5380  0.056333    96
+ 4       yes   66%   14400  0.000294 49046
+ 5       yes   92%    4800  0.648644     7
+ 6       yes   88%    4800  0.658402     7
+ 7       yes   55%   12000  0.232186    52
+ 8       yes   51%   24000  0.438231    55
+ 9       yes   26%   14401  0.086111   167
+10       yes   30%   14401  0.003424  4206
+Total          73%  112372  2.413293    47
+
+Perf index = 44 (util) + 3 (thru) = 47/100
+correct:11
+perfidx:47
+
+4. worst fit
+Results for mm malloc:
+trace  valid  util     ops      secs  Kops
+ 0       yes   99%    5694  0.072236    79
+ 1       yes   99%    5848  0.074251    79
+ 2       yes   99%    6648  0.111548    60
+ 3       yes   99%    5380  0.054913    98
+ 4       yes   66%   14400  0.000135106352
+ 5       yes   92%    4800  0.651259     7
+ 6       yes   88%    4800  0.827085     6
+ 7       yes   55%   12000  0.277717    43
+ 8       yes   51%   24000  0.592583    41
+ 9       yes   26%   14401  0.085979   167
+10       yes   30%   14401  0.003296  4370
+Total          73%  112372  2.751001    41
+
+Perf index = 44 (util) + 3 (thru) = 47/100
+correct:11
+perfidx:47
+
